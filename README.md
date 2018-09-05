@@ -1,2 +1,1 @@
-Required python packages:
-GitPython
+Combo Server

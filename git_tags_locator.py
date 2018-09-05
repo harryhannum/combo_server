@@ -1,4 +1,4 @@
-from .source_locator_general import *
+from source_locator_general import *
 from temp.version import *
 
 

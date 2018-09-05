@@ -13,3 +13,6 @@ class ProjectSource:
             self.local_path = kwargs['path']
         else:
             raise TypeError('Source type {} is not supported yet'.format(src_type))
+
+    def __str__(self):
+        return type(self).__name__ + ': ' + str(vars(self))
