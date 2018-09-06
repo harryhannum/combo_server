@@ -1,5 +1,5 @@
-from temp.utils import *
-from temp.compat import string_types
+from combo_common.utils import *
+from combo_common.compat import string_types
 
 
 class MajorVersionMismatch(BaseException):
