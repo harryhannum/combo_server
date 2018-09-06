@@ -2,7 +2,7 @@ import argparse
 import socket
 import threading
 import struct
-from source_locator import *
+from server_source_locator import *
 
 
 MAX_REQUEST_LENGTH = 256
@@ -10,7 +10,7 @@ ACK_MSG = struct.pack('>i', 0xF00BA4)
 NACK_MSG = struct.pack('>i', 0xDEC11E)
 SOURCES_JSON = 'sources.json'
 
-source_locator = SourceLocator(SOURCES_JSON)
+source_locator = ServerSourceLocator(SOURCES_JSON)
 
 
 def handle_client_connection(client_socket):
