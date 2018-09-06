@@ -1,5 +1,5 @@
-from source_locator_general import *
-from combo_common.version import *
+from combo_core.source_locator_general import *
+from combo_core.version import *
 
 
 class GitTagsVersionFormatter:

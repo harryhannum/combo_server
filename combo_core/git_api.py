@@ -1,7 +1,7 @@
 import git
 import gc
 import os
-from combo_common import utils
+import utils
 
 
 class GitRepo:
