@@ -1,5 +1,4 @@
-class RequestedVersionNotFound(BaseException):
-    pass
+import json
 
 
 class ProjectSource:
@@ -15,4 +14,7 @@ class ProjectSource:
             raise TypeError('Source type {} is not supported yet'.format(src_type))
 
     def __str__(self):
-        return type(self).__name__ + ': ' + str(vars(self))
+        return type(self).__name__ + ': ' + self.as_dict()
+
+    def as_dict(self):
+        return json.dumps(vars(self))
