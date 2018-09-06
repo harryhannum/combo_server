@@ -1,5 +1,5 @@
-from combo_core.source_locator_general import *
 from combo_core.version import *
+from combo_core.source_locator import *
 
 
 class GitTagsVersionFormatter:
@@ -42,7 +42,7 @@ class GitTagsSourceSupplier:
         return source
 
     def _search_tags(self, version_str):
-        from combo_common import git_api
+        from combo_core import git_api
 
         working_dir = os.path.dirname(os.path.realpath(__file__))
         dst_path = os.path.join(working_dir, self._project_name.lower().replace(' ', '_'))
