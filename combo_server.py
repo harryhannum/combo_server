@@ -36,7 +36,6 @@ def handle_client_connection(client_socket):
         client_socket.send(source.as_dict().encode())
 
     except BaseException as e:
-        print(NACK_MSG)
         client_socket.send(NACK_MSG)
         print('Failed to handle request from', client_socket)
         print(e, '\n')
