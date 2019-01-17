@@ -3,6 +3,10 @@ import socket
 import threading
 import struct
 import json
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'contrib')))
+
 from server_source_locator import *
 
 
