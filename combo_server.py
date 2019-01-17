@@ -2,6 +2,7 @@ import argparse
 import socket
 import threading
 import struct
+import json
 from server_source_locator import *
 
 
@@ -11,6 +12,25 @@ NACK_MSG = struct.pack('>i', 0xDEC11E)
 SOURCES_JSON = 'sources.json'
 
 source_locator = ServerSourceLocator(SOURCES_JSON)
+
+
+def full_json():
+    d = {
+        "(Core Library, v2.1)": {
+            "hash": 1507179887,
+            "size": 126
+        },
+        "(Lib A, v1.7)": {
+            "hash": 501194260,
+            "size": 229
+        },
+        "(Lib B, v1.4)": {
+            "hash": 1555234999,
+            "size": 221
+        }
+    }
+
+    return json.dumps(d)
 
 
 def handle_client_connection(client_socket):
