@@ -56,7 +56,7 @@ def handle_client_request():
                 VersionNumber(project_version) # Make sure version is valid
 
                 source = source_locator.get_source(project_name, project_version)
-                return source.as_dict().encode()
+                return json.dumps(source).encode()
             else:
                 return "Request type is not yet supported..."
         except BaseException as e:
