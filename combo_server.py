@@ -1,7 +1,3 @@
-import argparse
-import socket
-import threading
-import struct
 import json
 import sys
 import os
@@ -14,6 +10,7 @@ app = Flask(__name__)
 SOURCES_JSON = 'sources.json'
 
 source_locator = ServerSourceLocator(SOURCES_JSON)
+
 
 def full_json():
     d = {
@@ -33,6 +30,7 @@ def full_json():
 
     return json.dumps(d)
 
+
 @app.route("/", methods=['POST', 'GET'])
 def handle_client_request():
     REQUEST_TYPE_GET_SOURCE = "get_source"
@@ -41,19 +39,19 @@ def handle_client_request():
         return "Post method is yet to be developed..."
 
     elif request.method == 'GET':
-        #handling GET requests
+        # Handling GET requests
         try:
             request_type = request.args.get('request_type')
-            assert request_type != None, "No request type"
+            assert request_type is not None, "No request type"
 
             if request_type == REQUEST_TYPE_GET_SOURCE:
                 project_name = request.args.get('project_name')
-                assert project_name != None, "No project name"
+                assert project_name is not None, "No project name"
 
                 project_version = request.args.get('project_version')
-                assert project_version != None, "No project version"
+                assert project_version is not None, "No project version"
 
-                VersionNumber(project_version) # Make sure version is valid
+                VersionNumber(project_version)  # Make sure version is valid
 
                 source = source_locator.get_source(project_name, project_version)
                 return json.dumps(source).encode()
@@ -61,8 +59,8 @@ def handle_client_request():
                 return "Request type is not yet supported..."
         except BaseException as e:
             print('Failed to handle request')
-            return "error : "+ str(e)
-    
+            return "error : " + str(e)
+
+
 if __name__ == '__main__':
-    #main()
     app.run()

@@ -1,5 +1,6 @@
 from combo_core.version import *
 from combo_core.source_locator import *
+from combo_core.utils import *
 
 
 class GitTagsVersionFormatter:
@@ -44,8 +45,8 @@ class GitTagsSourceSupplier:
     def _search_tags(self, version_str):
         from combo_core import git_api
 
-        working_dir = os.path.dirname(os.path.realpath(__file__))
-        dst_path = os.path.join(working_dir, self._project_name.lower().replace(' ', '_'))
+        working_dir = Directory(os.path.dirname(__file__))
+        dst_path = working_dir.join(self._project_name.lower().replace(' ', '_'))
 
         repo = git_api.GitRepo(dst_path)
         repo.clone(self._remote_url)
