@@ -12,7 +12,9 @@ SOURCES_JSON = 'sources.json'
 source_locator = ServerSourceLocator(SOURCES_JSON)
 
 
-def full_json():
+@app.route('/get_available_versions', methods=['GET'])
+def get_available_versions_request():
+    # TODO: Get actual dictionary
     d = {
         "(Core Library, v2.1)": {
             "hash": 1507179887,
@@ -28,38 +30,31 @@ def full_json():
         }
     }
 
-    return json.dumps(d)
+    return json.dumps(d).encode()
 
 
-@app.route("/", methods=['POST', 'GET'])
-def handle_client_request():
-    REQUEST_TYPE_GET_SOURCE = "get_source"
-    if request.method == 'POST':
-        # Todo: handle post requests
-        return "Post method is yet to be developed..."
+@app.route("/get_source", methods=['GET'])
+def get_source_request():
+    try:
+        project_name = request.args.get('project_name')
+        assert project_name is not None, "No project name"
 
-    elif request.method == 'GET':
-        # Handling GET requests
-        try:
-            request_type = request.args.get('request_type')
-            assert request_type is not None, "No request type"
+        project_version = request.args.get('project_version')
+        assert project_version is not None, "No project version"
 
-            if request_type == REQUEST_TYPE_GET_SOURCE:
-                project_name = request.args.get('project_name')
-                assert project_name is not None, "No project name"
+        VersionNumber(project_version)  # Make sure version is valid
 
-                project_version = request.args.get('project_version')
-                assert project_version is not None, "No project version"
+        source = source_locator.get_source(project_name, project_version)
+        return json.dumps(source).encode()
+    except BaseException as e:
+        print('Failed to handle request')
+        return "Error: " + str(e)
 
-                VersionNumber(project_version)  # Make sure version is valid
 
-                source = source_locator.get_source(project_name, project_version)
-                return json.dumps(source).encode()
-            else:
-                return "Request type is not yet supported..."
-        except BaseException as e:
-            print('Failed to handle request')
-            return "error : " + str(e)
+@app.route("/", methods=['POST'])
+def handle_post_request():
+    # TODO: handle post requests
+    return "Post method is yet to be developed..."
 
 
 if __name__ == '__main__':
