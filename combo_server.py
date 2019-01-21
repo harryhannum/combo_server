@@ -3,7 +3,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'contrib')))
 
-from server_source_locator import *
+from server_source_maintainer import *
 from flask import Flask, request
 import argparse
 
@@ -42,7 +42,7 @@ def get_source_request():
         assert project_version is not None, 'Missing project version'
         VersionNumber.validate(project_version)
 
-        source = source_locator.get_source(project_name, project_version)
+        source = source_maintainer.get_source(project_name, project_version)
         return json.dumps(source).encode()
     except BaseException as e:
         print('Failed to handle request')
@@ -55,8 +55,11 @@ def add_project_request():
         project_name = request.args.get('project_name')
         assert project_name is not None, 'Missing project name'
 
-        # TODO: Actually add the project
-        return 'Adding project named "{}"'.format(project_name)
+        source_type = request.args.get('source_type')  # Optional
+
+        source_maintainer.add_project(project_name, source_type)
+        return 'Added project "{}" successfully'.format(project_name)
+
     except BaseException as e:
         print('Failed to handle request')
         return 'Error: ' + str(e)
@@ -65,16 +68,24 @@ def add_project_request():
 @app.route('/add_version', methods=['POST'])
 def add_version_request():
     try:
+        # TODO: Consider that in the future this will not be received,
+        # and instead this will be extracted using the version details.
+        # Otherwise, we probably still want to validate it, so it will probably be cloned anyway
         project_name = request.args.get('project_name')
         assert project_name is not None, 'Missing project name'
-        assert source_locator.project_exists(project_name), 'Project {} does not exist'.format(project_name)
+        assert source_maintainer.project_exists(project_name), 'Project {} does not exist'.format(project_name)
 
         project_version = request.args.get('project_version')
         assert project_version is not None, 'Missing project version'
         VersionNumber.validate(project_version)
 
-        # TODO: Actually add the version, and also request source parameters (dictionary)
-        return 'Adding version "{}" for project "{}"'.format(project_version, project_name)
+        version_details_str = request.args.get('version_details')
+        assert version_details_str is not None, 'Missing version details'
+        version_details = json.loads(version_details_str)
+
+        source_maintainer.add_version(project_name, project_version, version_details)
+        return 'Added details of version "{}" of project "{}" successfully'.format(project_version, project_name)
+
     except BaseException as e:
         print('Failed to handle request')
         return 'Error: ' + str(e)
@@ -88,6 +99,6 @@ if __name__ == '__main__':
     parser.add_argument('--debug', '-d', action="store_true")
     args = parser.parse_args()
 
-    source_locator = ServerSourceLocator(args.sources_json)
+    source_maintainer = ServerSourceMaintainer(args.sources_json)
 
     app.run(port=args.port, debug=args.debug)
