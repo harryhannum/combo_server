@@ -5,11 +5,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'contrib
 
 from server_source_locator import *
 from flask import Flask, request
+import argparse
+
 app = Flask(__name__)
-
-SOURCES_JSON = 'sources.json'
-
-source_locator = ServerSourceLocator(SOURCES_JSON)
+DEFAULT_SOURCES_JSON = 'sources.json'
 
 
 @app.route('/get_available_versions', methods=['GET'])
@@ -82,4 +81,13 @@ def add_version_request():
 
 
 if __name__ == '__main__':
-    app.run()
+    parser = argparse.ArgumentParser(description='Combo server arguments')
+    parser.add_argument('port', help='Server port number', type=int)
+    parser.add_argument('--sources-json', '-j', help='A JSON file that maps the dependencies sources',
+                        nargs='?', default=DEFAULT_SOURCES_JSON)
+    parser.add_argument('--debug', '-d', action="store_true")
+    args = parser.parse_args()
+
+    source_locator = ServerSourceLocator(args.sources_json)
+
+    app.run(port=args.port, debug=args.debug)
