@@ -107,6 +107,9 @@ class JsonSourceLocator(SourceLocator):
         else:
             return self.DEFAULT_SRC_TYPE
 
+    def project_exists(self, project_name):
+        return project_name in self._projects
+
     def get_source(self, project_name, version):
         if project_name not in self._projects:
             raise UndefinedProject('Project {} could not be found'.format(project_name))

@@ -9,6 +9,9 @@
         },
         "1.1": {
             "commit_hash": "67b9913763bb1004b41111c0ca9046b8260cefc7"
+        },
+        "1.2": {
+            "commit_hash": "70207ca3d0604a01c43a389b26a2ce1d3963c496"
         }
     },
     "My Executable": {
