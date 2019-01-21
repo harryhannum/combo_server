@@ -1,69 +1,69 @@
 {
-    "My Executable":
-    {
+    "Combo Core": {
+        "defaults": {
+            "type": "git",
+            "url": "https://github.com/annieherram/combo_core.git"
+        },
+        "1.0": {
+            "commit_hash": "cb2fc9194c069e3aeaff661d0e7959dbe6b3abdf"
+        },
+        "1.1": {
+            "commit_hash": "67b9913763bb1004b41111c0ca9046b8260cefc7"
+        },
+        "1.2": {
+            "commit_hash": "70207ca3d0604a01c43a389b26a2ce1d3963c496"
+        },
+        "1.3": {
+            "commit_hash": "f5df3dc0eec76f0c27b4eec62cf80cb4370c692d"
+        }
+    },
+    "My Executable": {
         "general_type": "version_dependent",
-
-        "1.0":
-        {
+        "1.0": {
             "type": "git",
             "url": "https://github.com/annieherram/my_exec.git",
             "commit_hash": "2bff85808ea73831cd3d2cdfb67ef81783878289"
         }
     },
-    "Lib A":
-    {
-        "general_type": "version_dependent",
-
-        "1.1":
-        {
+    "Lib A": {
+        "defaults": {
             "type": "git",
-            "url": "https://github.com/annieherram/lib_a.git",
+            "url": "https://github.com/annieherram/lib_a.git"
+        },
+        "1.1": {
             "commit_hash": "7601a555b7b248dc41914d9a1a1a9f0dd9bb5927"
         },
-        "1.5":
-        {
-            "type": "git",
-            "url": "https://github.com/annieherram/lib_a.git",
+        "1.5": {
             "commit_hash": "ddec071a5e3dabe704c5e5de189c2994f82c5e49"
         },
-        "1.6":
-        {
-            "type": "git",
-            "url": "https://github.com/annieherram/lib_a.git",
+        "1.6": {
             "commit_hash": "b65c12b094ff1d4b5677a77aaa104cad37fabe3d"
         },
-        "1.7":
-        {
-            "type": "git",
-            "url": "https://github.com/annieherram/lib_a.git",
+        "1.7": {
             "commit_hash": "2de4266f204e59efaf8a74904e1b4cf18fae2d3b"
+        },
+        "2.0": {
+            "commit_hash": "1234266f204e59efaf8a74904e1b4cf18fae1234"
         }
     },
-    "Lib B":
-    {
-        "general_type": "version_dependent",
-
-        "1.2":
-        {
+    "Lib B": {
+        "1.2": {
             "type": "git",
             "url": "https://github.com/annieherram/lib_b.git",
             "commit_hash": "e706d082e086a23b84c2c703aaeb82c3d39803c3"
         },
-        "1.3":
-        {
+        "1.3": {
             "type": "git",
             "url": "https://github.com/annieherram/lib_b.git",
             "commit_hash": "c3db5db233510e3cf4da2cfd7d012a41db423faa"
         },
-        "1.4":
-        {
+        "1.4": {
             "type": "git",
             "url": "https://github.com/annieherram/lib_b.git",
             "commit_hash": "399665602f33afc94ec06ab7a20c5c85e7c20a0a"
         }
     },
-    "Core Library":
-    {
+    "Core Library": {
         "general_type": "git_tags",
         "url": "https://github.com/annieherram/core_lib.git",
         "tags_prefix": "v"
