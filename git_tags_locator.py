@@ -9,7 +9,7 @@ class GitTagsVersionFormatter:
 
     def is_version(self, tag):
         try:
-            VersionNumber(str(tag), self._tags_prefix)
+            VersionNumber.validate(str(tag), self._tags_prefix)
         except:
             return False
         return True
