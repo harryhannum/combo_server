@@ -46,23 +46,23 @@ def get_source_request():
         return json.dumps(source).encode()
     except BaseException as e:
         print('Failed to handle request')
-        return 'Error: ' + str(e)
+        return 'Error (type {}): {}'.format(type(e), e)
 
 
 @app.route('/add_project', methods=['POST'])
 def add_project_request():
     try:
-        project_name = request.args.get('project_name')
+        project_name = request.values.get('project_name')
         assert project_name is not None, 'Missing project name'
 
-        source_type = request.args.get('source_type')  # Optional
+        source_type = request.values.get('source_type')  # Optional
 
         source_maintainer.add_project(project_name, source_type)
         return 'Added project "{}" successfully'.format(project_name)
 
     except BaseException as e:
         print('Failed to handle request')
-        return 'Error: ' + str(e)
+        return 'Error (type {}): {}'.format(type(e), e)
 
 
 @app.route('/add_version', methods=['POST'])
@@ -71,15 +71,15 @@ def add_version_request():
         # TODO: Consider that in the future this will not be received,
         # and instead this will be extracted using the version details.
         # Otherwise, we probably still want to validate it, so it will probably be cloned anyway
-        project_name = request.args.get('project_name')
+        project_name = request.values.get('project_name')
         assert project_name is not None, 'Missing project name'
         assert source_maintainer.project_exists(project_name), 'Project {} does not exist'.format(project_name)
 
-        project_version = request.args.get('project_version')
+        project_version = request.values.get('project_version')
         assert project_version is not None, 'Missing project version'
         VersionNumber.validate(project_version)
 
-        version_details_str = request.args.get('version_details')
+        version_details_str = request.values.get('version_details')
         assert version_details_str is not None, 'Missing version details'
         version_details = json.loads(version_details_str)
 
@@ -88,7 +88,7 @@ def add_version_request():
 
     except BaseException as e:
         print('Failed to handle request')
-        return 'Error: ' + str(e)
+        return 'Error (type {}): {}'.format(type(e), e)
 
 
 if __name__ == '__main__':
