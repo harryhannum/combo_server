@@ -22,8 +22,8 @@ class ProjectSource:
         if src_type == 'git':
             self.remote_url = kwargs['url']
             self.commit_hash = kwargs['commit_hash']
-        elif src_type == 'local_path':
-            self.local_path = kwargs['path']
+        elif src_type == 'file_system':
+            self.path = kwargs['path']
         else:
             raise TypeError('Source type {} is not supported yet'.format(src_type))
 
@@ -108,7 +108,7 @@ class SourceLocator(object):
         raise NotImplementedError()
 
 
-class JsonSourceHandler:
+class IndexerSourceHandler(object):
     IDENTIFIER_TYPE_KEYWORD = 'general_type'
     DEFAULT_SRC_TYPE = 'version_dependent'
 
@@ -127,10 +127,13 @@ class JsonSourceHandler:
             return project_details[self.IDENTIFIER_TYPE_KEYWORD]
         return self.DEFAULT_SRC_TYPE
 
+    def get_json_file_path(self):
+        return str(self._projects)
 
-class JsonSourceLocator(JsonSourceHandler, SourceLocator):
+
+class IndexerSourceLocator(IndexerSourceHandler, SourceLocator):
     def __init__(self, json_path):
-        super(JsonSourceLocator, self).__init__(json_path)
+        super(IndexerSourceLocator, self).__init__(json_path)
 
     def project_exists(self, project_name):
         return project_name in self._projects
