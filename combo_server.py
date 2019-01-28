@@ -3,12 +3,13 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'contrib')))
 
-from server_source_maintainer import *
+from global_source_maintainer import *
+from combo_core.importer import *
 from flask import Flask, request
 import argparse
 
 app = Flask(__name__)
-DEFAULT_SOURCES_JSON = 'sources.json'
+DEFAULT_INDEXER_JSON = 'sources_index.json'
 
 
 @app.route('/get_available_versions', methods=['GET'])
@@ -68,23 +69,15 @@ def add_project_request():
 @app.route('/add_version', methods=['POST'])
 def add_version_request():
     try:
-        # TODO: Consider that in the future this will not be received,
-        # and instead this will be extracted using the version details.
-        # Otherwise, we probably still want to validate it, so it will probably be cloned anyway
-        project_name = request.values.get('project_name')
-        assert project_name is not None, 'Missing project name'
-        assert source_maintainer.project_exists(project_name), 'Project {} does not exist'.format(project_name)
-
-        project_version = request.values.get('project_version')
-        assert project_version is not None, 'Missing project version'
-        VersionNumber.validate(project_version)
-
         version_details_str = request.values.get('version_details')
         assert version_details_str is not None, 'Missing version details'
         version_details = json.loads(version_details_str)
 
-        source_maintainer.add_version(project_name, project_version, version_details)
-        return 'Added details of version "{}" of project "{}" successfully'.format(project_version, project_name)
+        details = source_maintainer.add_version(version_details)
+        if details:
+            return 'Added details of version "{}" of project "{}" successfully'.format(details.version, details.name)
+
+        return 'Added version details "{}" successfully'.format(version_details)
 
     except BaseException as e:
         print('Failed to handle request')
@@ -95,10 +88,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Combo server arguments')
     parser.add_argument('port', help='Server port number', type=int)
     parser.add_argument('--sources-json', '-j', help='A JSON file that maps the dependencies sources',
-                        nargs='?', default=DEFAULT_SOURCES_JSON)
+                        nargs='?', default=DEFAULT_INDEXER_JSON)
     parser.add_argument('--debug', '-d', action="store_true")
     args = parser.parse_args()
 
-    source_maintainer = ServerSourceMaintainer(args.sources_json)
+    source_maintainer = GlobalSourceMaintainer(args.sources_json)
 
     app.run(port=args.port, debug=args.debug)
