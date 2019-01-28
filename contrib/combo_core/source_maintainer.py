@@ -18,9 +18,10 @@ class SourceMaintainer(SourceLocator):
 
 
 class IndexerSourceMaintainer(IndexerSourceLocator, SourceMaintainer):
-    def __init__(self, json_path, importer):
+    def __init__(self, json_path, **kwargs):
         super(IndexerSourceMaintainer, self).__init__(json_path)
-        self._importer = importer
+        importer_type = kwargs.get('importer_type', Importer)
+        self._importer = importer_type(self, **kwargs)
 
     def add_project(self, project_name, source_type=None):
         if project_name in self._projects:
@@ -41,21 +42,21 @@ class IndexerSourceMaintainer(IndexerSourceLocator, SourceMaintainer):
 
     def _extract_details(self, version_details, **kwargs):
         if 'project_name' in kwargs and 'project_version' in kwargs:
-            return kwargs['project_name'], kwargs['project_version']
+            return ComboDep(kwargs['project_name'], kwargs['project_version'])
 
         import_details = ProjectSource(version_details['type'], **version_details).as_dict()
         clone_dir = self._importer.clone(import_details)
 
-        manifest = Manifest(clone_dir)
-        return manifest.name, manifest.version
+        manifest = Manifest(clone_dir, expected_combo_node=False)
+        return ComboDep(manifest.name, manifest.version)
 
     def add_version(self, version_details, **kwargs):
-        project_name, project_version = self._extract_details(version_details, **kwargs)
+        dep_details = self._extract_details(version_details, **kwargs)
 
-        if project_name not in self._projects:
-            raise UndefinedProject('Project {} could not be found'.format(project_name))
+        if dep_details.name not in self._projects:
+            raise UndefinedProject('Project {} could not be found'.format(dep_details.name))
 
-        project_details = self._projects[project_name]
+        project_details = self._projects[dep_details.name]
 
         # This function is only relevant for version dependency source types
         source_type = project_details.get(
@@ -63,17 +64,19 @@ class IndexerSourceMaintainer(IndexerSourceLocator, SourceMaintainer):
         assert source_type == 'version_dependent', 'Unsupported action'
 
         # If the requested version already exists this is an error
-        if str(project_version) in project_details:
+        if str(dep_details.version) in project_details:
             raise VersionAlreadyExists('Version "{}" of project "{}" already exist in file "{}"'.format(
-                project_version, project_name, self.get_json_file_path()))
+                dep_details.version, dep_details.name, self.get_json_file_path()))
 
         # Remove details which are not necessary due to defaults
         project_defaults = project_details.get(VersionDependentSourceSupplier.SOURCE_DEFAULTS_KEYWORD)
         if project_defaults is not None:
             version_details = VersionDependentSourceSupplier.filter_version_details(version_details, project_defaults)
 
-        project_details[str(project_version)] = version_details
+        project_details[str(dep_details.version)] = version_details
 
         # This update is necessary for the file update
-        self._projects[project_name] = project_details
+        self._projects[dep_details.name] = project_details
+
+        return dep_details
 
