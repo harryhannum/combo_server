@@ -2,7 +2,7 @@
     "Combo Core": {
         "defaults": {
             "type": "git",
-            "url": "https://github.com/annieherram/combo_core.git"
+            "url": "https://github.com/harryhannum/combo_core.git"
         },
         "0.1.0": {
             "commit_hash": "cb2fc9194c069e3aeaff661d0e7959dbe6b3abdf"
