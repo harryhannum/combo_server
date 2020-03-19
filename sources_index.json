@@ -1,115 +1,126 @@
 {
     "Combo Core": {
-        "defaults": {
-            "type": "git",
-            "url": "https://github.com/harryhannum/combo_core.git"
-        },
         "0.1.0": {
             "commit_hash": "cb2fc9194c069e3aeaff661d0e7959dbe6b3abdf"
-        },
+        }, 
         "0.1.1": {
             "commit_hash": "67b9913763bb1004b41111c0ca9046b8260cefc7"
-        },
-        "0.2.0": {
-            "commit_hash": "70207ca3d0604a01c43a389b26a2ce1d3963c496"
-        },
-        "0.3.0": {
-            "commit_hash": "f5df3dc0eec76f0c27b4eec62cf80cb4370c692d"
-        },
-        "0.4.0": {
-            "commit_hash": "97f3b46648ec22aecedf345d2bce0e1adad0962d"
-        },
-        "0.5.0": {
-            "commit_hash": "069f8ec89e64975ad2745c00ce213d4b63d55dd3"
-        },
-        "0.6.0": {
-            "commit_hash": "980e937e1550fad14d7757fabc4aae46ed78e4a6"
-        },
-        "0.7.0": {
-            "commit_hash": "229c2c36be218ca2686b92dc526912f1d25204c2"
-        },
-        "0.8.0": {
-            "commit_hash": "e1e2516c164ae3f9c2cdc7a7949f59f5cd164c5a"
-        },
-        "0.9.0": {
-            "commit_hash": "93df950641dd91c39268227fbef71cf215264020"
-        },
+        }, 
         "0.10.0": {
             "commit_hash": "76669beb04c2e60e3b1f5c0edf6da8f6d14a5118"
-        },
+        }, 
         "0.11.0": {
             "commit_hash": "24a4746d3682163fa954f83c8c50c26569683423"
-        },
+        }, 
         "0.12.0": {
             "commit_hash": "85f3bffad26c049176118bc8fcc487d0d356c3cd"
-        },
+        }, 
         "0.13.0": {
             "commit_hash": "32c52079dea1d436575c1a2c8d270e77d4313e0b"
-        },
+        }, 
         "0.13.1": {
             "commit_hash": "7f861eda7361526f018f47ad2ea2c35d2bd10a67"
-        },
+        }, 
         "0.14.0": {
             "commit_hash": "4809b62b020475bf03484b59a7060afd21674ca8"
-        }
-    },
-    "My Executable": {
-        "general_type": "version_dependent",
-        "1.0.0": {
-            "type": "git",
-            "url": "https://github.com/harryhannum/my_exec.git",
-            "commit_hash": "2bff85808ea73831cd3d2cdfb67ef81783878289"
-        }
-    },
-    "Lib A": {
+        }, 
+        "0.15.0": {
+            "commit_hash": "32349dd425b938f22733565cd00f14396481baca"
+        }, 
+        "0.15.1": {
+            "commit_hash": "5ad93f1230cb3600e76f6e6048c53d7e7f91f358"
+        }, 
+        "0.2.0": {
+            "commit_hash": "70207ca3d0604a01c43a389b26a2ce1d3963c496"
+        }, 
+        "0.3.0": {
+            "commit_hash": "f5df3dc0eec76f0c27b4eec62cf80cb4370c692d"
+        }, 
+        "0.4.0": {
+            "commit_hash": "97f3b46648ec22aecedf345d2bce0e1adad0962d"
+        }, 
+        "0.5.0": {
+            "commit_hash": "069f8ec89e64975ad2745c00ce213d4b63d55dd3"
+        }, 
+        "0.6.0": {
+            "commit_hash": "980e937e1550fad14d7757fabc4aae46ed78e4a6"
+        }, 
+        "0.7.0": {
+            "commit_hash": "229c2c36be218ca2686b92dc526912f1d25204c2"
+        }, 
+        "0.8.0": {
+            "commit_hash": "e1e2516c164ae3f9c2cdc7a7949f59f5cd164c5a"
+        }, 
+        "0.9.0": {
+            "commit_hash": "93df950641dd91c39268227fbef71cf215264020"
+        }, 
         "defaults": {
-            "type": "git",
-            "url": "https://github.com/harryhannum/lib_a.git"
-        },
+            "type": "git", 
+            "url": "https://github.com/harryhannum/combo_core.git"
+        }
+    }, 
+    "Core Library": {
+        "general_type": "git_tags", 
+        "tags_prefix": "v", 
+        "url": "https://github.com/harryhannum/core_lib.git"
+    }, 
+    "Lib A": {
         "1.1.0": {
             "commit_hash": "7601a555b7b248dc41914d9a1a1a9f0dd9bb5927"
-        },
+        }, 
         "1.5.0": {
             "commit_hash": "ddec071a5e3dabe704c5e5de189c2994f82c5e49"
-        },
+        }, 
         "1.6.0": {
             "commit_hash": "b65c12b094ff1d4b5677a77aaa104cad37fabe3d"
-        },
+        }, 
         "1.7.0": {
             "commit_hash": "2de4266f204e59efaf8a74904e1b4cf18fae2d3b"
-        },
-        "2.0.0": {
-            "commit_hash": "1234266f204e59efaf8a74904e1b4cf18fae1234"
-        },
+        }, 
         "1.8.0": {
             "commit_hash": "83a0911eafda7fb9b45ab7af0da0789d0968f92f"
+        }, 
+        "1.8.1": {
+            "commit_hash": "518f8272ab0b54ef5d65b70872196e342ba4f61d", 
+            "type": "git", 
+            "url": "git@github.com:harryhannum/lib_a.git"
+        }, 
+        "2.0.0": {
+            "commit_hash": "1234266f204e59efaf8a74904e1b4cf18fae1234"
+        }, 
+        "defaults": {
+            "type": "git", 
+            "url": "https://github.com/harryhannum/lib_a.git"
         }
-    },
+    }, 
     "Lib B": {
         "1.2.0": {
-            "type": "git",
-            "url": "https://github.com/harryhannum/lib_b.git",
-            "commit_hash": "e706d082e086a23b84c2c703aaeb82c3d39803c3"
-        },
+            "commit_hash": "e706d082e086a23b84c2c703aaeb82c3d39803c3", 
+            "type": "git", 
+            "url": "https://github.com/harryhannum/lib_b.git"
+        }, 
         "1.3.0": {
-            "type": "git",
-            "url": "https://github.com/harryhannum/lib_b.git",
-            "commit_hash": "c3db5db233510e3cf4da2cfd7d012a41db423faa"
-        },
+            "commit_hash": "c3db5db233510e3cf4da2cfd7d012a41db423faa", 
+            "type": "git", 
+            "url": "https://github.com/harryhannum/lib_b.git"
+        }, 
         "1.4.0": {
-            "type": "git",
-            "url": "https://github.com/harryhannum/lib_b.git",
-            "commit_hash": "399665602f33afc94ec06ab7a20c5c85e7c20a0a"
-        },
+            "commit_hash": "399665602f33afc94ec06ab7a20c5c85e7c20a0a", 
+            "type": "git", 
+            "url": "https://github.com/harryhannum/lib_b.git"
+        }, 
         "1.5.0": {
-            "type": "git",
-            "url": "https://github.com/harryhannum/lib_b.git",
-            "commit_hash": "a5f70483258e333700f1bd85eb3812c8aa47434e"
+            "commit_hash": "a5f70483258e333700f1bd85eb3812c8aa47434e", 
+            "type": "git", 
+            "url": "https://github.com/harryhannum/lib_b.git"
         }
-    },
-    "Core Library": {
-        "general_type": "git_tags",
-        "url": "https://github.com/harryhannum/core_lib.git",
-        "tags_prefix": "v"
+    }, 
+    "My Executable": {
+        "1.0.0": {
+            "commit_hash": "2bff85808ea73831cd3d2cdfb67ef81783878289", 
+            "type": "git", 
+            "url": "https://github.com/harryhannum/my_exec.git"
+        }, 
+        "general_type": "version_dependent"
     }
 }
