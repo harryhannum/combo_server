@@ -75,15 +75,19 @@ class VersionDependentSourceSupplier:
         if project_defaults is None:
             return version_details
 
-        if SpecificVersionHandler.TYPE_KEYWORD not in version_details:
-            raise InvalidVersionDetails('Missing attribute "{}"'.format(SpecificVersionHandler.TYPE_KEYWORD))
+        # We want to filter details only if their types are the same
+        # If the version doesn't have a specific type we should consider it to have the default type
+        default_type = project_defaults.get(SpecificVersionHandler.TYPE_KEYWORD)
+        version_type = version_details.get(SpecificVersionHandler.TYPE_KEYWORD, default_type)
 
-        # We want to filter details only if there is no default type, or the default type is ours
-        if SpecificVersionHandler.TYPE_KEYWORD not in project_defaults:
-            return
-        if version_details[SpecificVersionHandler.TYPE_KEYWORD] != \
-                project_defaults[SpecificVersionHandler.TYPE_KEYWORD]:
-            return
+        if version_type is None:
+            raise InvalidVersionDetails(
+                'Missing attribute "{}" from selected version. deatils: "{}", project defaults: "{}"'.format(
+                    SpecificVersionHandler.TYPE_KEYWORD, version_details, project_defaults))
+
+        if not default_type or default_type != version_type:
+            # The project defaults are not relevant for us, since their type doesnt match our version type
+            return version_details
 
         # The version details has the same type as the project defaults, we can filter
         # Take each record that either does not exist in the defaults, or exist with a different value

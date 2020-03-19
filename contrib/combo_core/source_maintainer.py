@@ -81,14 +81,15 @@ class IndexerSourceMaintainer(IndexerSourceLocator, SourceMaintainer):
             # If the version exist with the same details its fine,
             # but if a different details are requested it is an error
             if requested_version_details == existing_version_details:
-                raise RequestedVersionAlreadyExisted('Version "{}" of project "{}" already exists with the '
-                                                     'same details'.format(dep_details.version, dep_details.name))
+                raise RequestedVersionAlreadyExisted(
+                    'Version "{}" of project "{}" already exists with the same details'.format(
+                        dep_details.version, dep_details.name))
             else:
-                raise RequestedVersionMismatch('Version "{}" of project "{}" already exist in file "{}" with details: '
-                                               '"{}"'.format(dep_details.version, dep_details.name,
-                                                             self.get_json_file_path(), existing_version_details))
+                raise RequestedVersionMismatch(
+                    'Version "{}" of project "{}" already exist in file "{}" with details: "{}"'.format(
+                        dep_details.version, dep_details.name, self.get_json_file_path(), existing_version_details))
 
-        project_details[str(dep_details.version)] = version_details
+        project_details[str(dep_details.version)] = requested_version_details
 
         # This update is necessary for the file update
         self._projects[dep_details.name] = project_details
