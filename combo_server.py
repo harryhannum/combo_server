@@ -79,6 +79,8 @@ def add_version_request():
 
         return 'Added version details "{}" successfully'.format(version_details)
 
+    except RequestedVersionAlreadyExisted as e:
+        return e.message
     except BaseException as e:
         print('Failed to handle request')
         return 'Error (type {}): {}'.format(type(e), e)

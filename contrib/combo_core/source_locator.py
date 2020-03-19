@@ -71,6 +71,10 @@ class VersionDependentSourceSupplier:
 
     @staticmethod
     def filter_version_details(version_details, project_defaults):
+        # If there are no defaults there is nothing to filter
+        if project_defaults is None:
+            return version_details
+
         if SpecificVersionHandler.TYPE_KEYWORD not in version_details:
             raise InvalidVersionDetails('Missing attribute "{}"'.format(SpecificVersionHandler.TYPE_KEYWORD))
 
