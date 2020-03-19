@@ -3,6 +3,7 @@ import hashlib
 import stat
 import shutil
 import json
+import fnmatch
 
 
 class ObjectNotFound(LookupError):
@@ -18,6 +19,8 @@ class ActionOnNonexistingDirectory(EnvironmentError):
 
 
 class Directory(object):
+    HASH_IGNORE_FILE_NAME = '.gitignore'
+
     def __init__(self, path):
         self.path = path.path if isinstance(path, type(self)) else os.path.abspath(path)
 
@@ -34,7 +37,7 @@ class Directory(object):
         return os.path.abspath(self.path)
 
     def join(self, *paths):
-        target_path = os.path.abspath(os.path.join(self.path, *paths))
+        target_path = os.path.join(self.path, *paths)
         return Directory(target_path)
 
     def sons(self):
@@ -46,6 +49,8 @@ class Directory(object):
         return Directory(os.path.dirname(self.path))
 
     def get_file(self, default_content=''):
+        assert not self.is_dir(), 'Requested to get directory {} as file'.format(self.path)
+
         if not self.exists():
             if default_content is None:
                 raise EnvironmentError('File {} does not exist'.format(self.path))
@@ -56,7 +61,6 @@ class Directory(object):
             with open(self.path, 'w') as f:
                 f.write(default_content)
 
-        assert not os.path.isdir(self.path), 'Requested to get directory {} as file'.format(self.path)
         return self.path
 
     def copy_to(self, dst, symlinks=False, ignore=None):
@@ -105,25 +109,56 @@ class Directory(object):
     def relative_to(self, other):
         return os.path.relpath(self.path, other.path)
 
-    def get_hash(self):
+    def get_hash(self, ignore_unwanted_files=True):
+        """
+        Calculates a hash of the entire content of a directory (recursively)
+        The content which is being hash is the relative path to each file, and its content
+        Optionaly, this hash function ignore unwanted files to hashing using the ".gitignore" format
+
+        :param ignore_unwanted_files: True in order to take ".gitignore" files into account and exclude
+                                      irrelevant files from hashing, False in order to hash the entire directory
+        :return: The hash content digestion (a string of hexadecimal digits)
+        """
         sha_hash = hashlib.md5()
         
         if not self.exists():
             raise ActionOnNonexistingDirectory(self.path)
+
+        def hash_file(file_path):
+            path_to_hash = os.path.relpath(file_path, self.path)
+            sha_hash.update(path_to_hash.encode())
+
+            with open(file_path, 'rb') as f:
+                for buf in iter(lambda: f.read(4096), b''):
+                    sha_hash.update(buf)
+
+        def extract_ignore_lines(path):
+            ignore_file = self.join(self.HASH_IGNORE_FILE_NAME)
+
+            if not ignore_file.exists():
+                return []
+
+            # Extract ignore patterns
+            with open(ignore_file.path, 'r') as f:
+                lines = f.read().splitlines()
+            return lines
+
+        def extract_files_to_hash(root, files, ignore_unwanted_files):
+            if not ignore_unwanted_files:
+                return files
+
+            patterns = extract_ignore_lines(root)
+            return [file_name for file_name in files if not any(fnmatch.fnmatch(file_name, pat) for pat in patterns)]
 
         for root, dirs, files in os.walk(self.path):
             # This is sorted for determined results between all platforms, must be sorted here
             dirs.sort()
             files.sort()
 
-            for names in files:
-                file_path = os.path.join(root, names)
-                path_to_hash = os.path.relpath(file_path, self.path)
-                sha_hash.update(path_to_hash.encode())
+            files_to_hash = extract_files_to_hash(root, files, ignore_unwanted_files)
 
-                with open(file_path, 'rb') as f:
-                    for buf in iter(lambda: f.read(4096), b''):
-                        sha_hash.update(buf)
+            for file_name in files_to_hash:
+                hash_file(os.path.join(root, file_name))
 
         return sha_hash.hexdigest()
 
