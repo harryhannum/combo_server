@@ -81,16 +81,14 @@
             "commit_hash": "83a0911eafda7fb9b45ab7af0da0789d0968f92f"
         }, 
         "1.8.1": {
-            "commit_hash": "518f8272ab0b54ef5d65b70872196e342ba4f61d", 
-            "type": "git", 
-            "url": "git@github.com:harryhannum/lib_a.git"
+            "commit_hash": "518f8272ab0b54ef5d65b70872196e342ba4f61d"
         }, 
         "2.0.0": {
             "commit_hash": "1234266f204e59efaf8a74904e1b4cf18fae1234"
         }, 
         "defaults": {
             "type": "git", 
-            "url": "https://github.com/harryhannum/lib_a.git"
+            "url": "git@github.com:harryhannum/lib_a.git"
         }
     }, 
     "Lib B": {
