@@ -30,6 +30,9 @@
         "0.15.1": {
             "commit_hash": "5ad93f1230cb3600e76f6e6048c53d7e7f91f358"
         }, 
+        "0.15.2": {
+            "commit_hash": "5d2fa0f92bc180fa8faffc0fd0df77b61fc2ee2a"
+        }, 
         "0.2.0": {
             "commit_hash": "70207ca3d0604a01c43a389b26a2ce1d3963c496"
         }, 

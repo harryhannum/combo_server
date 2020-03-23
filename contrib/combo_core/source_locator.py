@@ -116,7 +116,11 @@ class SourceLocator(object):
         raise NotImplementedError()
 
 
-class IndexerSourceHandler(object):
+class LocalSourceHandler(object):
+    """
+    A source handle which is performed locally without contacting a remote unit
+    Does its job using an "index" dictionary (Json)
+    """
     IDENTIFIER_TYPE_KEYWORD = 'general_type'
     DEFAULT_SRC_TYPE = 'version_dependent'
 
@@ -139,9 +143,9 @@ class IndexerSourceHandler(object):
         return str(self._projects)
 
 
-class IndexerSourceLocator(IndexerSourceHandler, SourceLocator):
+class LocalSourceLocator(LocalSourceHandler, SourceLocator):
     def __init__(self, json_path):
-        super(IndexerSourceLocator, self).__init__(json_path)
+        super(LocalSourceLocator, self).__init__(json_path)
 
     def project_exists(self, project_name):
         return project_name in self._projects

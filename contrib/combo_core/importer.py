@@ -162,12 +162,10 @@ class Importer(object):
         :param dep: A combo dependency
         :return: The hash of the given dependency
         """
-        # If already cached, return the cached hash
-        if self._cached_data.has_dep(dep):
-            return self._cached_data.get_hash(dep)
+        # If we don't have the server available, we need to cache the dependency to get its hash
+        if not self._cached_data.has_dep(dep):
+            self.clone(dep)
 
-        # We don't have the server available, so we need to cache the dependency to get its hash
-        self.clone(dep)
         return self._cached_data.get_hash(dep)
 
     def get_cached_path(self, dep):

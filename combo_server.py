@@ -9,7 +9,7 @@ from flask import Flask, request
 import argparse
 
 app = Flask(__name__)
-DEFAULT_INDEXER_JSON = 'sources_index.json'
+DEFAULT_INDEX_JSON = 'sources_index.json'
 
 
 def handle_request(handling_func, *args):
@@ -96,7 +96,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Combo server arguments')
     parser.add_argument('port', help='Server port number', type=int)
     parser.add_argument('--sources-json', '-j', help='A JSON file that maps the dependencies sources',
-                        nargs='?', default=DEFAULT_INDEXER_JSON)
+                        nargs='?', default=DEFAULT_INDEX_JSON)
     parser.add_argument('--debug', '-d', action="store_true")
     args = parser.parse_args()
 

@@ -21,15 +21,15 @@ class SourceMaintainer(SourceLocator):
         raise NotImplementedError()
 
 
-class IndexerSourceMaintainer(IndexerSourceLocator, SourceMaintainer):
+class LocalSourceMaintainer(LocalSourceLocator, SourceMaintainer):
     def __init__(self, json_path, **kwargs):
-        super(IndexerSourceMaintainer, self).__init__(json_path)
+        super(LocalSourceMaintainer, self).__init__(json_path)
         importer_type = kwargs.get('importer_type', Importer)
         self._importer = importer_type(self, **kwargs)
 
     def add_project(self, project_name, source_type=None):
         if project_name in self._projects:
-            requested_src_type = source_type or IndexerSourceHandler.DEFAULT_SRC_TYPE
+            requested_src_type = source_type or LocalSourceHandler.DEFAULT_SRC_TYPE
             actual_src_type = self._get_src_type(self._projects[project_name])
             assert requested_src_type == actual_src_type, 'Project already exists with different source type'
             return
@@ -39,8 +39,8 @@ class IndexerSourceMaintainer(IndexerSourceLocator, SourceMaintainer):
         project_details = dict()
 
         # If the source type is not the default, we need to manually specify it
-        if source_type is not None and source_type != IndexerSourceHandler.DEFAULT_SRC_TYPE:
-            project_details[IndexerSourceHandler.IDENTIFIER_TYPE_KEYWORD] = source_type
+        if source_type is not None and source_type != LocalSourceHandler.DEFAULT_SRC_TYPE:
+            project_details[LocalSourceHandler.IDENTIFIER_TYPE_KEYWORD] = source_type
 
         self._projects[project_name] = project_details
 
@@ -64,7 +64,7 @@ class IndexerSourceMaintainer(IndexerSourceLocator, SourceMaintainer):
 
         # This function is only relevant for version dependency source types
         source_type = project_details.get(
-            IndexerSourceHandler.IDENTIFIER_TYPE_KEYWORD, IndexerSourceHandler.DEFAULT_SRC_TYPE)
+            LocalSourceHandler.IDENTIFIER_TYPE_KEYWORD, LocalSourceHandler.DEFAULT_SRC_TYPE)
         assert source_type == 'version_dependent', 'Unsupported action'
 
         # Remove details which are not necessary due to defaults
