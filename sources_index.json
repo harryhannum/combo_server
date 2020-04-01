@@ -1,98 +1,112 @@
 {
-    "Combo Core": {
-        "defaults": {
-            "type": "git",
-            "url": "https://github.com/harryhannum/combo_core.git"
-        },
-        "0.1.0": {
-            "commit_hash": "cb2fc9194c069e3aeaff661d0e7959dbe6b3abdf"
-        },
-        "0.1.1": {
-            "commit_hash": "67b9913763bb1004b41111c0ca9046b8260cefc7"
-        },
-        "0.2.0": {
-            "commit_hash": "70207ca3d0604a01c43a389b26a2ce1d3963c496"
-        },
-        "0.3.0": {
-            "commit_hash": "f5df3dc0eec76f0c27b4eec62cf80cb4370c692d"
-        },
-        "0.4.0": {
-            "commit_hash": "97f3b46648ec22aecedf345d2bce0e1adad0962d"
-        },
-        "0.5.0": {
-            "commit_hash": "069f8ec89e64975ad2745c00ce213d4b63d55dd3"
-        },
-        "0.6.0": {
-            "commit_hash": "980e937e1550fad14d7757fabc4aae46ed78e4a6"
-        },
-        "0.7.0": {
-            "commit_hash": "229c2c36be218ca2686b92dc526912f1d25204c2"
-        },
-        "0.8.0": {
-            "commit_hash": "e1e2516c164ae3f9c2cdc7a7949f59f5cd164c5a"
-        },
-        "0.9.0": {
-            "commit_hash": "93df950641dd91c39268227fbef71cf215264020"
-        },
-        "0.10.0": {
-            "commit_hash": "76669beb04c2e60e3b1f5c0edf6da8f6d14a5118"
-        },
-        "0.11.0": {
-            "commit_hash": "24a4746d3682163fa954f83c8c50c26569683423"
-        },
-        "0.12.0": {
-            "commit_hash": "85f3bffad26c049176118bc8fcc487d0d356c3cd"
-        }
-    },
-    "My Executable": {
-        "general_type": "version_dependent",
-        "1.0.0": {
-            "type": "git",
-            "url": "https://github.com/annieherram/my_exec.git",
-            "commit_hash": "2bff85808ea73831cd3d2cdfb67ef81783878289"
-        }
-    },
+    "b": {}, 
     "Lib A": {
-        "defaults": {
-            "type": "git",
-            "url": "https://github.com/annieherram/lib_a.git"
-        },
         "1.1.0": {
             "commit_hash": "7601a555b7b248dc41914d9a1a1a9f0dd9bb5927"
-        },
-        "1.5.0": {
-            "commit_hash": "ddec071a5e3dabe704c5e5de189c2994f82c5e49"
-        },
-        "1.6.0": {
-            "commit_hash": "b65c12b094ff1d4b5677a77aaa104cad37fabe3d"
-        },
-        "1.7.0": {
-            "commit_hash": "2de4266f204e59efaf8a74904e1b4cf18fae2d3b"
-        },
+        }, 
         "2.0.0": {
             "commit_hash": "1234266f204e59efaf8a74904e1b4cf18fae1234"
+        }, 
+        "1.5.0": {
+            "url": "ssh://www.motherfucker.com", 
+            "attribute": "yoyam", 
+            "type": "file_system", 
+            "path": "hey/test"
+        }, 
+        "1.6.0": {
+            "commit_hash": "b65c12b094ff1d4b5677a77aaa104cad37fabe3d"
+        }, 
+        "defaults": {
+            "url": "https://github.com/annieherram/lib_a.git", 
+            "type": "git"
+        }, 
+        "1.7.0": {
+            "commit_hash": "2de4266f204e59efaf8a74904e1b4cf18fae2d3b"
         }
-    },
+    }, 
     "Lib B": {
-        "1.2.0": {
-            "type": "git",
-            "url": "https://github.com/annieherram/lib_b.git",
-            "commit_hash": "e706d082e086a23b84c2c703aaeb82c3d39803c3"
-        },
-        "1.3.0": {
-            "type": "git",
-            "url": "https://github.com/annieherram/lib_b.git",
-            "commit_hash": "c3db5db233510e3cf4da2cfd7d012a41db423faa"
-        },
         "1.4.0": {
-            "type": "git",
-            "url": "https://github.com/annieherram/lib_b.git",
+            "url": "https://github.com/annieherram/lib_b.git", 
+            "type": "git", 
             "commit_hash": "399665602f33afc94ec06ab7a20c5c85e7c20a0a"
+        }, 
+        "1.3.0": {
+            "url": "https://github.com/annieherram/lib_b.git", 
+            "type": "git", 
+            "commit_hash": "c3db5db233510e3cf4da2cfd7d012a41db423faa"
+        }, 
+        "1.2.0": {
+            "url": "https://github.com/annieherram/lib_b.git", 
+            "type": "git", 
+            "commit_hash": "e706d082e086a23b84c2c703aaeb82c3d39803c3"
         }
-    },
+    }, 
+    "Combo Core": {
+        "0.9.0": {
+            "commit_hash": "93df950641dd91c39268227fbef71cf215264020"
+        }, 
+        "0.10.0": {
+            "commit_hash": "76669beb04c2e60e3b1f5c0edf6da8f6d14a5118"
+        }, 
+        "0.3.0": {
+            "commit_hash": "f5df3dc0eec76f0c27b4eec62cf80cb4370c692d"
+        }, 
+        "0.6.0": {
+            "commit_hash": "980e937e1550fad14d7757fabc4aae46ed78e4a6"
+        }, 
+        "0.11.0": {
+            "commit_hash": "24a4746d3682163fa954f83c8c50c26569683423"
+        }, 
+        "0.8.0": {
+            "commit_hash": "e1e2516c164ae3f9c2cdc7a7949f59f5cd164c5a"
+        }, 
+        "0.7.0": {
+            "commit_hash": "229c2c36be218ca2686b92dc526912f1d25204c2"
+        }, 
+        "0.12.0": {
+            "commit_hash": "85f3bffad26c049176118bc8fcc487d0d356c3cd"
+        }, 
+        "defaults": {
+            "url": "https://github.com/harryhannum/combo_core.git", 
+            "type": "git"
+        }, 
+        "0.2.0": {
+            "commit_hash": "70207ca3d0604a01c43a389b26a2ce1d3963c496"
+        }, 
+        "0.1.0": {
+            "commit_hash": "cb2fc9194c069e3aeaff661d0e7959dbe6b3abdf"
+        }, 
+        "0.1.1": {
+            "commit_hash": "67b9913763bb1004b41111c0ca9046b8260cefc7"
+        }, 
+        "0.5.0": {
+            "commit_hash": "069f8ec89e64975ad2745c00ce213d4b63d55dd3"
+        }, 
+        "0.4.0": {
+            "commit_hash": "97f3b46648ec22aecedf345d2bce0e1adad0962d"
+        }
+    }, 
     "Core Library": {
-        "general_type": "git_tags",
-        "url": "https://github.com/annieherram/core_lib.git",
-        "tags_prefix": "v"
+        "url": "https://github.com/annieherram/core_lib.git", 
+        "tags_prefix": "v", 
+        "general_type": "git_tags"
+    }, 
+    "avner": {}, 
+    "My Executable": {
+        "general_type": "version_dependent", 
+        "1.0.0": {
+            "url": "https://github.com/annieherram/my_exec.git", 
+            "type": "git", 
+            "commit_hash": "2bff85808ea73831cd3d2cdfb67ef81783878289"
+        }
+    }, 
+    "test": {}, 
+    "bob": {}, 
+    "Combo Project Test": {
+        "1.0.0": {
+            "url": "git@github.com:razgino11/combo_project_test.git", 
+            "type": "git", 
+            "commit_hash": "8a283b96a0737a7566947cc646c66d453900e46f"
+        }
     }
 }
