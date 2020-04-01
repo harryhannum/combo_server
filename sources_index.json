@@ -25,20 +25,10 @@
         }
     }, 
     "Lib B": {
-        "1.4.0": {
-            "url": "https://github.com/annieherram/lib_b.git", 
-            "type": "git", 
-            "commit_hash": "399665602f33afc94ec06ab7a20c5c85e7c20a0a"
-        }, 
         "1.3.0": {
             "url": "https://github.com/annieherram/lib_b.git", 
             "type": "git", 
             "commit_hash": "c3db5db233510e3cf4da2cfd7d012a41db423faa"
-        }, 
-        "1.2.0": {
-            "url": "https://github.com/annieherram/lib_b.git", 
-            "type": "git", 
-            "commit_hash": "e706d082e086a23b84c2c703aaeb82c3d39803c3"
         }
     }, 
     "Combo Core": {
@@ -101,10 +91,12 @@
         }
     }, 
     "test": {}, 
+    "blabla": {}, 
     "bob": {}, 
+    "tes": {}, 
     "Combo Project Test": {
         "1.0.0": {
-            "url": "git@github.com:razgino11/combo_project_test.git", 
+            "url": "https://github.com/razgino11/combo_project_test", 
             "type": "git", 
             "commit_hash": "8a283b96a0737a7566947cc646c66d453900e46f"
         }

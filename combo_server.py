@@ -12,19 +12,18 @@ import argparse
 app = Flask(__name__)
 DEFAULT_INDEXER_JSON = 'sources_index.json'
 
-@app.route('/get_upload_params', methods=['GET'])
-def get_upload_parameters():
+@app.route('/upload_params/<source_type>', methods=['GET'])
+def get_upload_parameters(source_type):
     try:
-        project_name = request.args.get('src_type')
-        assert project_name is not None, 'Missing source type'
+        assert source_type is not None, 'Missing source type'
 
         upload_parameters = {
-            'git': ["commit_hash", "remote_url"],
+            'git': ["commit_hash", "url"],
             'test': ["test1", "test2"]
         }
 
-        if (upload_parameters.has_key(project_name)):
-            result_parameters = upload_parameters[project_name]
+        if (upload_parameters.has_key(source_type)):
+            result_parameters = upload_parameters[source_type]
         else:
             result_parameters = [""]
         
@@ -36,7 +35,7 @@ def get_upload_parameters():
         return 'Error (type {}): {}'.format(type(e), e)
 
 
-@app.route('/get_available_versions', methods=['GET'])
+@app.route('/project', methods=['GET'])
 def get_available_versions_request():
     # TODO: Get actual dictionary
     d = {
@@ -116,15 +115,7 @@ def get_available_versions_request():
             "hash": 501194260,
             "size": 433
         },
-        '(Lib B, v1.2.0)': {
-            "hash": 501194260,
-            "size": 233
-        },
         '(Lib B, v1.3.0)': {
-            "hash": 501194260,
-            "size": 432
-        },
-        '(Lib B, v1.4.0)': {
             "hash": 501194260,
             "size": 432
         }
@@ -133,14 +124,12 @@ def get_available_versions_request():
     response = jsonify(json.dumps(d))
     return response
 
-@app.route('/get_source', methods=['GET'])
-def get_source_request():
+@app.route('/project/<project_name>/<project_version>', methods=['GET'])
+def get_source_request(project_name, project_version):
     try:
-        project_name = request.args.get('project_name')
         assert project_name is not None, 'Missing project name'
-
-        project_version = request.args.get('project_version')
         assert project_version is not None, 'Missing project version'
+
         VersionNumber.validate(project_version)
 
         source = source_maintainer.get_source(project_name, project_version)
@@ -159,12 +148,10 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
     return response
 
-@app.route('/add_project', methods=['POST'])
-def add_project_request():
+@app.route('/project/<project_name>', methods=['POST'])
+def add_project_request(project_name):
     try:
         print ('Add project activated')
-        project_name = request.json['project_name']
-
         assert project_name is not None, 'Missing project name'
 
         source_type = request.values.get('source_type')  # Optional
@@ -178,20 +165,19 @@ def add_project_request():
         return 'Error (type {}): {}'.format(type(e), e)
 
 
-@app.route('/add_version', methods=['POST'])
-def add_version_request():
+@app.route('/project/<project_name>/<project_version>', methods=['POST'])
+def add_version_request(project_name, project_version):
     try:
         print ('Add version activated')
         version_details = request.json
-        print ("version details")
-        print (request.json)
         assert version_details is not None, 'Missing version details'
-
         details = source_maintainer.add_version(version_details)
         if details:
-            return 'Added details of version "{}" of project "{}" successfully'.format(details.version, details.name)
+            response = jsonify('Added details of version "{}" of project "{}" successfully'.format(details.version, details.name))
+            return response
 
-        return 'Added version details "{}" successfully'.format(version_details)
+        response = jsonify('Added version details "{}" successfully'.format(version_details))
+        return response
 
     except BaseException as e:
         print('Failed to handle request')
