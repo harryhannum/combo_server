@@ -96,7 +96,7 @@
     "tes": {}, 
     "Combo Project Test": {
         "1.0.0": {
-            "url": "https://github.com/razgino11/combo_project_test", 
+            "url": "git@github.com:razgino11/combo_project_test.git", 
             "type": "git", 
             "commit_hash": "8a283b96a0737a7566947cc646c66d453900e46f"
         }

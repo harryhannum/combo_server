@@ -133,7 +133,7 @@ def get_source_request(project_name, project_version):
         VersionNumber.validate(project_version)
 
         source = source_maintainer.get_source(project_name, project_version)
-        response = jsonify(json.dumps(source))
+        response = jsonify(source)
         return response
     
     except BaseException as e:
@@ -164,12 +164,33 @@ def add_project_request(project_name):
         print('Failed to handle request')
         return 'Error (type {}): {}'.format(type(e), e)
 
-
 @app.route('/project/<project_name>/<project_version>', methods=['POST'])
 def add_version_request(project_name, project_version):
     try:
         print ('Add version activated')
         version_details = request.json
+        assert version_details is not None, 'Missing version details'
+        details = source_maintainer.add_version(version_details)
+        if details:
+            response = jsonify('Added details of version "{}" of project "{}" successfully'.format(details.version, details.name))
+            return response
+
+        response = jsonify('Added version details "{}" successfully'.format(version_details))
+        return response
+
+    except BaseException as e:
+        print('Failed to handle request')
+        return 'Error (type {}): {}'.format(type(e), e)
+
+@app.route('/project/', methods=['POST'])
+def add_version_by_type_request():
+    try:
+        print ('testt')
+        print (request.values)
+        print ('Add project and deduct name and version by clone activated')
+        version_details = request.json
+        print ("version details:")
+        print (version_details)
         assert version_details is not None, 'Missing version details'
         details = source_maintainer.add_version(version_details)
         if details:
