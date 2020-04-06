@@ -5,12 +5,20 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'contrib
 
 from global_source_maintainer import *
 from combo_core.importer import *
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, send_file
 
 import argparse
 
 app = Flask(__name__)
 DEFAULT_INDEXER_JSON = 'sources_index.json'
+
+@app.route("/")
+def return_angular_index():
+    return render_template('index.html')
+
+@app.route("/assets/<resource_name>", methods=['GET'])
+def return_resource(resource_name):
+    return send_file('assets/' + resource_name)
 
 @app.route('/upload_params/<source_type>', methods=['GET'])
 def get_upload_parameters(source_type):
