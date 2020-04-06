@@ -100,5 +100,12 @@
             "type": "git", 
             "commit_hash": "8a283b96a0737a7566947cc646c66d453900e46f"
         }
+    }, 
+    "Combo Web Client": {
+        "0.1.0": {
+            "url": "https://github.com/harryhannum/combo_web_client", 
+            "type": "git", 
+            "commit_hash": "5695e02bad3f1650d99f39224dba1af04678c271"
+        }
     }
 }
