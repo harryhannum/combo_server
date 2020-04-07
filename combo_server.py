@@ -8,6 +8,7 @@ from combo_core.importer import *
 from flask import Flask, request, jsonify, render_template, send_file
 
 import argparse
+import update_combo_web_client
 
 app = Flask(__name__)
 DEFAULT_INDEXER_JSON = 'sources_index.json'
@@ -219,7 +220,11 @@ if __name__ == '__main__':
     parser.add_argument('--sources-json', '-j', help='A JSON file that maps the dependencies sources',
                         nargs='?', default=DEFAULT_INDEXER_JSON)
     parser.add_argument('--debug', '-d', action="store_true")
+    parser.add_argument('--update-webclient', '-uwc', action="store_true")
     args = parser.parse_args()
+
+    if (args.update_webclient):
+        update_combo_web_client.updateComboWebClient()
 
     source_maintainer = GlobalSourceMaintainer(args.sources_json)
 

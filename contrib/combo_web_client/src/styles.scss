@@ -1,0 +1,70 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap');
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+$primary: rgb(224, 207, 51);
+$primary: rgb(119, 174, 196);
+
+.example-form-field {
+    width: 200px;
+}
+
+body {
+    margin: 0;
+    font-family: 'Nunito', 'sans-serif';
+    font-size: 18px;
+}
+
+.header_container
+{
+    width: 95%;
+    margin: 0 auto;
+}
+
+.container {
+    width: 82%;
+    margin: 0 auto;
+}
+
+header {
+    background: $primary;
+    padding: 0.7em 0;
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+    a.logo {
+        font-weight: bold;
+    }
+
+    nav {
+        float: right;
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            display: flex;
+
+            li a {
+                padding: 1em;
+                font-size: 1.05em;
+                text-align: center;
+                line-height: 6em;
+                &:hover {
+                    background: darken($primary, 10%);
+                }
+            }
+        }
+    }
+}
+
+h1 {
+    margin-top: 2em;
+}
+
+a {
+    font-family: sans-serif;
+}

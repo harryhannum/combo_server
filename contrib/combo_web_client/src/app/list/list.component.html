@@ -1,0 +1,112 @@
+<h1>Combo Projects</h1>
+
+<mat-form-field class="example-form-field">
+  <mat-label>Search Project</mat-label>
+  <input matInput type="text" [(ngModel)]="projectSearchValue">
+  <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="projectSearchValue=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<mat-form-field class="example-form-field">
+  <mat-label>Search Version</mat-label>
+  <input matInput type="text" [(ngModel)]="versionSearchValue">
+  <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="versionSearchValue=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<button mat-raised-button class="upload-project-button" (click)="openUploadSheet()">Upload New Project</button>
+
+<mat-accordion>
+  <!--List of projects-->
+  <ng-template *ngFor="let versionsMap of comboProjects | keyvalue"
+    [ngIf]="SearchResultsContains(versionsMap.key, projectSearchValue)">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <h3>{{ versionsMap.key }} </h3>
+      </mat-expansion-panel-header>
+
+      <!--List of versions for each project-->
+      <ng-template *ngFor="let version of versionsMap.value | keyvalue: CompareSemanticVersionOfKeys"
+        [ngIf]="SearchResultStartsWith(version.key, versionSearchValue)">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3> {{ version.key }} </h3>
+            </mat-panel-title>
+            <div class="expension-panel">
+              <mat-panel-description>
+                <div [ngSwitch]="version?.value?.additionalVersionInformation?.src_type">
+                  <div *ngSwitchCase="GIT">
+                    <img [src]="GetIconSource(version.value.additionalVersionInformation['remote_url'])" class="version-icon">
+                  </div>
+                  <div *ngSwitchDefault>
+                  </div>
+                </div>
+              </mat-panel-description>
+            </div>
+          </mat-expansion-panel-header>
+
+          <div [ngSwitch]="version?.value?.additionalVersionInformation?.src_type">
+            <div *ngSwitchCase="GIT">
+              <div class="src-type">
+                <div style="display: inline" class="property-key">
+                  Source Type:
+                </div>
+                {{ version.value?.additionalVersionInformation["src_type"] }}
+                <br> <br>
+              </div>
+
+              <div class="commit-hash">
+                <div style="display: inline" class="property-key">
+                  Commit Hash:
+                </div>
+                {{ version.value?.additionalVersionInformation["commit_hash"] }}
+                <br> <br>
+              </div>
+
+              <div class="remote-url">
+                <div style="display: inline" class="property-key">
+                  Remote URL:
+                </div>
+                <a href="{{ version.value.additionalVersionInformation['remote_url'] }}" class="site">
+                  {{ version.value.additionalVersionInformation['remote_url'] }} </a>
+                <br> <br>
+              </div>
+            </div>
+
+            <div *ngSwitchDefault>
+              <div *ngFor="let property of version.value?.additionalVersionInformation | keyvalue">
+                <div class="custom-property" ng-switch-default>
+                  <div style="display: inline" class="property-key">
+                    {{ property.key }}:
+                  </div>
+                  {{ property.value }}:
+                  <br> <br>
+                </div>
+              </div>
+            </div>
+
+            <div class="size">
+              <div style="display: inline" class="property-key">
+                Size:
+              </div>
+              {{ version.value?.baseVersionInformation?.size }}
+              <br> <br>
+            </div>
+
+            <div class="hash">
+              <div style="display: inline" class="property-key">
+                Hash:
+              </div>
+              {{ version.value?.baseVersionInformation?.hash }}
+              <br> <br>
+            </div>
+  
+          </div>
+        </mat-expansion-panel>
+      </ng-template>
+    </mat-expansion-panel>
+  </ng-template>
+</mat-accordion>

@@ -1,0 +1,82 @@
+<button mat-raised-button class="upload-project-button" (click)="Upload()">Upload</button>
+<h2>Upload New</h2>
+
+<mat-form-field class="margined-form-field">
+    <mat-label>Existing Project</mat-label>
+    <mat-select [(value)]="existingProjectNameValue">
+      <mat-option *ngFor="let versionsMap of data | keyvalue" [value]="versionsMap.key">
+        {{ versionsMap.key }}
+      </mat-option>
+    </mat-select>
+</mat-form-field>
+       <strong> OR </strong>
+
+<mat-form-field class="margined-form-field">
+  <mat-label>New Project Name</mat-label>
+  <input matInput type="text" [(ngModel)]="projectNameValue">
+  <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="projectNameValue=''">
+      <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<br>
+
+<mat-form-field class="margined-form-field">
+    <mat-label>Project Version</mat-label>
+    <input matInput type="text" [(ngModel)]="projectVersionValue">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="projectVersionValue=''">
+        <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+<mat-form-field class="margined-form-field">
+    <mat-label>Version Type</mat-label>
+    <mat-select [(value)]="selectedVersionType">
+      <mat-option *ngFor="let projectType of projectTypes" [value]="projectType">
+        {{ projectType }}
+      </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<br>
+
+<div *ngFor="let uploadParam of projectUploadParams.get(selectedVersionType)">
+  <mat-form-field class="margined-form-field">
+    <mat-label> {{ uploadParam }} </mat-label>
+    <input matInput type="text" [(ngModel)]="projectUploadParamValues[uploadParam]">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear">
+        <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <br>
+</div>
+
+<div *ngFor="let customUploadParam of projectCustomUploadParams.get(selectedVersionType)">
+  <mat-form-field class="margined-form-field">
+    <mat-label> {{ customUploadParam }} </mat-label>
+    <input matInput type="text" [(ngModel)]="projectUploadParamValues[customUploadParam]">
+    <button mat-button matSuffix mat-icon-button aria-label="Remove"
+     (click)="projectCustomUploadParams.get(selectedVersionType).splice(projectCustomUploadParams.get(selectedVersionType)?.indexOf(customUploadParam), 1)">
+        <mat-icon>remove</mat-icon>
+    </button>
+  </mat-form-field>
+  <br>
+</div>
+
+<mat-form-field class="margined-form-field">
+  <mat-label> Add Custom Param </mat-label>
+  <input matInput type="text" [(ngModel)]="customUploadParamValue">
+  <button mat-button matSuffix mat-icon-button aria-label="Add"
+   (click)="AddCustomParam(selectedVersionType, customUploadParamValue)">
+      <mat-icon>add</mat-icon>
+  </button>
+</mat-form-field>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
